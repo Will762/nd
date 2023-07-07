@@ -1,24 +1,93 @@
-function dirReduc(arr) {
-    let changed = true;
-    const scores = {
-        "NORTH": 1,
-        "SOUTH": -1,
-        "EAST": 2,
-        "WEST": -2,
-    };
-    
-    while (changed) {
-        changed = false;
-        console.log(arr);
-        for (i = 1; i < arr.length; i++) {
-            if (!(scores[arr[i - 1]] + scores[arr[i]])) {
-                arr.splice(i - 1, 2);
-                changed = true;
-            }
-        }
-    }
+snail = (function(array) {
+	if (!array[0][0]) return [];
+	const result = [];
+	
+	(function doTheSnail(startIndex, lengthToExtract, arrayLength) {
+		let i = j = startIndex;
 
-    return arr;
-}
+		if (arrayLength === 0) {
+			return;
+		}
 
-dirReduc(['NORTH', 'EAST', 'WEST', 'SOUTH', 'NORTH', 'EAST']);
+		if (arrayLength === 1) {
+			result.push(array[i][j]);
+			return;
+		}
+
+		while (j <= lengthToExtract) {
+			result.push(array[i][j]);
+			if (j === lengthToExtract) {
+				i++;
+				break;
+			}
+			j++;
+		}
+
+		while (i <= lengthToExtract) {
+			result.push(array[i][j]);
+			if (i === lengthToExtract) {
+				j--;
+				break;
+			}
+			i++;
+		}
+
+		while (j >= startIndex) {
+			result.push(array[i][j]);
+			if (j === startIndex) {
+				i--;
+				break;
+			}
+			j--;
+		}
+
+		while (i > startIndex) {
+			result.push(array[i][j]);
+			i--;
+		}	
+
+		doTheSnail(startIndex + 1, lengthToExtract - 1, arrayLength - 2);
+	}(0, array.length - 1, array.length));
+	
+	return result;
+});
+
+// const x = snail([[]]);
+// const x = snail([[1]]);
+
+// 2x - OK
+// const x = snail([	[1,2],
+// 					[4,3]
+// 				]);
+
+// 3x - OK
+// const x = snail([	[1,2,3],
+//          			[8,9,4],
+//         			[7,6,5]
+// 				]);
+
+// 4x - bad
+const x = snail([	[01,02,03,04],
+					[12,13,14,05],
+					[11,16,15,06],
+					[10,09,08,07]
+				]);
+// 5x - bad
+// const x = snail([[01,02,03,04,05],
+// 					[16,17,18,19,06],
+// 					[15,24,25,20,07],
+// 					[14,23,22,21,08],
+// 					[13,12,11,10,09],
+// ]);
+
+// 6x - bad
+// const x = snail([[01,02,03,04,05,06],
+// 					[20,21,22,23,24,07],
+// 					[19,32,33,34,25,08],
+// 					[18,31,36,35,26,09],
+// 					[17,30,29,28,27,10],
+// 					[16,15,14,13,12,11]
+// ]);
+
+
+console.log(x);
