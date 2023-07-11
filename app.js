@@ -1,6 +1,5 @@
 function solution(list){
 	const result = [];
-	let limit = 1;
 	let rangeStart = rangeStop = 0;
 
 	function push() {
@@ -13,14 +12,16 @@ function solution(list){
 		}
 	}
 
-	for (limit; limit < list.length; limit++) {
-		if (Math.abs(list[limit] - list[rangeStop]) > 1) {
+	for (i = 1; i < list.length; i++) {
+		if (Math.abs(list[i] - list[rangeStop]) > 1) {
 			push();
-			rangeStart = limit;
+			rangeStart = i;
 		}
-		rangeStop = limit;
+		rangeStop = i;
 	}
 
 	push();
 	return result.join(',');
 }
+
+console.log(solution([-4, -2, -1, 0, 1, 2, 3, 8, 10, 11, 12, 15, 16, 20, 21, 25]))
