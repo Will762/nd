@@ -1,54 +1,20 @@
-// Numbers
-function zero(operation) {
-	return (operation) ? operation(0) : 0;
-}
-function one(operation) {
-	return (operation) ? operation(1) : 1;
-}
-function two(operation) {
-	return (operation) ? operation(2) : 2;
-}
-function three(operation) {
-	return (operation) ? operation(3) : 3;
-}
-function four(operation) {
-	return (operation) ? operation(4) : 4;
-}
-function five(operation) {
-	return (operation) ? operation(5) : 5;
-}
-function six(operation) {
-	return (operation) ? operation(6) : 6;
-}
-function seven(operation) {
-	return (operation) ? operation(7) : 7;
-}
-function eight(operation) {
-	return (operation) ? operation(8) : 8;
-}
-function nine(operation) {
-	return (operation) ? operation(9) : 9;
-}
-// Operations
-function plus(operand2) {
-	return function(operand1) {
-		return operand1 + operand2;
+function rgb(r, g, b){
+	function doTheThing(dec) {
+		const map = {
+			10: 'a',
+			11: 'b',
+			12: 'c',
+			13: 'd',
+			14: 'e',
+			15: 'f'
+		}
+		dec = dec > 255 ? 255 : dec;
+		dec = dec < 0 ? 0 : dec;
+		const octs = parseInt(dec / 16);
+		const units = dec % 16;
+		return `${map[octs] || octs}${map[units] || units}`
 	}
-}
-function minus(operand2) {
-	return function(operand1) {
-		return operand1 - operand2;
-	}
-}
-function times(operand2) {
-	return function(operand1) {
-		return operand1 * operand2;
-	}
-}
-function dividedBy(operand2) {
-	return function(operand1) {
-		return parseInt(operand1 / operand2);
-	}
-}
+	return `${doTheThing(r)}${doTheThing(g)}${doTheThing(b)}`;
+  }
 
-console.log(eight(dividedBy(two())));
+  console.log(rgb(-1,256,255))
