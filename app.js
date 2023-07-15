@@ -1,20 +1,15 @@
-function rgb(r, g, b){
-	function doTheThing(dec) {
-		const map = {
-			10: 'a',
-			11: 'b',
-			12: 'c',
-			13: 'd',
-			14: 'e',
-			15: 'f'
-		}
-		dec = dec > 255 ? 255 : dec;
-		dec = dec < 0 ? 0 : dec;
-		const octs = parseInt(dec / 16);
-		const units = dec % 16;
-		return `${map[octs] || octs}${map[units] || units}`
-	}
-	return `${doTheThing(r)}${doTheThing(g)}${doTheThing(b)}`;
+function rot13(message){
+	const chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+	const messageArr = message.split('');
+	return messageArr.map(char => {
+		if (!char.match(/[A-Za-z]/)) return char;
+		const isUpper = char.match(/[A-Z]/) ? true : false;
+		char = isUpper ? char.toLowerCase() : char;
+		const charIndex = chars.indexOf(char);
+		return charIndex < 13 
+			? isUpper ? chars[charIndex + 13].toUpperCase() : chars[charIndex + 13]
+			: isUpper ? chars[charIndex - 13].toUpperCase() : chars[charIndex - 13];
+	}).join('');
   }
-
-  console.log(rgb(-1,256,255))
+  console.log(rot13('abcdefghijklmnopqrstuvwxyz'))
+  
