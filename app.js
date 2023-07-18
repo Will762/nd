@@ -1,17 +1,8 @@
-var maxSequence = function(arr) {
-	if (!arr.length) return 0;
-	let largest = 0;
-	arr.reduce(((acc, el) => {
-		let sum = acc + el;
-		if (acc > largest) {
-			largest = acc;
-		}
-		if (sum > largest) {
-			largest = sum;
-		}
-		return sum > 0 ? sum : 0;
-	}), 0);
-	return largest;
-}
+function generateHashtag (str) {
+	if (!str || !str.match(/[A-Za-z]/)) return false;
+	let hashtag = str.replace(/^[A-Za-z]|\s+[A-Za-z]/g, match => match.toUpperCase().trim()).trim();
+	hashtag = hashtag[0] === "#" ? hashtag : "#" + hashtag;
+	return hashtag.length <= 140 ? hashtag : false;
+  }
 
-console.log(maxSequence([1,2,3]))
+console.log(maxSequence('hello world'))
