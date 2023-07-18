@@ -1,15 +1,17 @@
-function rot13(message){
-	const chars = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
-	const messageArr = message.split('');
-	return messageArr.map(char => {
-		if (!char.match(/[A-Za-z]/)) return char;
-		const isUpper = char.match(/[A-Z]/) ? true : false;
-		char = isUpper ? char.toLowerCase() : char;
-		const charIndex = chars.indexOf(char);
-		return charIndex < 13 
-			? isUpper ? chars[charIndex + 13].toUpperCase() : chars[charIndex + 13]
-			: isUpper ? chars[charIndex - 13].toUpperCase() : chars[charIndex - 13];
-	}).join('');
-  }
-  console.log(rot13('abcdefghijklmnopqrstuvwxyz'))
-  
+var maxSequence = function(arr) {
+	if (!arr.length) return 0;
+	let largest = 0;
+	arr.reduce(((acc, el) => {
+		let sum = acc + el;
+		if (acc > largest) {
+			largest = acc;
+		}
+		if (sum > largest) {
+			largest = sum;
+		}
+		return sum > 0 ? sum : 0;
+	}), 0);
+	return largest;
+}
+
+console.log(maxSequence([1,2,3]))
