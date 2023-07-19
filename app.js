@@ -1,12 +1,13 @@
 function firstNonRepeatingLetter(s) {
 	const results = new Map;
 	for (i = 0; i < s.length; i++) {
-		results.set(s[i], results.get(s[i]) + 1 || 1)
+		let c = s.toLowerCase();
+		results?.get(c[i])['count'] += 1 || results.set(c[i], {'i': i, 'count' : 1});
 	}
 	for (const [key, value] of results) {
-		if (value === 1) return key;
+		if (value['count'] === 1) return s[value['i']];
 	}
 	return '';
   }
 
-  console.log(firstNonRepeatingLetter('hellllllo'));
+  console.log(firstNonRepeatingLetter('hElllllloh'));
