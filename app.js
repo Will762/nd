@@ -1,13 +1,14 @@
-function firstNonRepeatingLetter(s) {
-	const results = new Map;
-	for (i = 0; i < s.length; i++) {
-		let c = s.toLowerCase();
-		results?.get(c[i])['count'] += 1 || results.set(c[i], {'i': i, 'count' : 1});
-	}
-	for (const [key, value] of results) {
-		if (value['count'] === 1) return s[value['i']];
-	}
-	return '';
-  }
+function orderWeight(str) {
+	if (!str) return str;
+	const obj = str.split(/\s+/).map(e => {
+		return {
+			e: e,
+			sum: e.split('').reduce((acc, cur) => parseInt(acc) + parseInt(cur))
+		}
+	});
+	obj.sort((a, b) => a['sum'] === b['sum'] ? a['e'] < b['e'] ? -1 : 1 : a['sum'] - b['sum']);
+    return obj.map(e => e['e']).join(' ');
+}
+console.log(orderWeight("2000 10003 1234000 44444444 9999 11 11 22 123 20"))
 
-  console.log(firstNonRepeatingLetter('hElllllloh'));
+//expected '1 200 2 4 4 6 6 7 7 9 18 27 72 81 91 …' to equal '1 2 200 4 4 6 6 7 7 18 27 72 81 9 91 …'
