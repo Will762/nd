@@ -1,22 +1,13 @@
-function solution(input, markers) {
-	console.log(new RegExp("\\s*[\\" + markers.join('') + "].*", "g"));
-	return input.replace(new RegExp("\\s*[\\" + markers.join('') + "].*", "g"), "");
-};
+function incrementString (str) {
+	const regex = str.match(/(?<leadingZeros>[0]*)(?<numbers>[0-9]+$)/);
+	if (!regex) return str + 1;
+	let leadingZeros = regex?.['groups']['leadingZeros'];
+	const numbers = regex?.['groups']['numbers'];
+	const increment = (parseInt(numbers) + 1).toString();
+	if (leadingZeros && numbers.length !== increment.length) {
+		leadingZeros = leadingZeros.substring(1);
+	}
+	return str.substring(0, regex['index']) + leadingZeros + increment;
+}
 
-// console.log(regex);
-console.log(JSON.stringify(solution("apples, plums % and bananas\npears\noranges !applesauce\noranges $applesauce", ["%", "!", "$"])));
-// console.log("apples, plums\npears\noranges");
-
-
-// Returned
-// 'apples, pears 
-// grapes
-// bananas'
-
-//but expected
-//'apples, pears
-// grapes
-// bananas'
-
-
-//"apples, plums\npears\noranges"
+console.log(incrementString('ff1'))
