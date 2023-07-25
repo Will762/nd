@@ -1,13 +1,12 @@
-function incrementString (str) {
-	const regex = str.match(/(?<leadingZeros>[0]*)(?<numbers>[0-9]+$)/);
-	if (!regex) return str + 1;
-	let leadingZeros = regex?.['groups']['leadingZeros'];
-	const numbers = regex?.['groups']['numbers'];
-	const increment = (parseInt(numbers) + 1).toString();
-	if (leadingZeros && numbers.length !== increment.length) {
-		leadingZeros = leadingZeros.substring(1);
+function scramble(str1, str2) {
+	if (str1.length < str2.length) return false;
+	for (i = 0; i < str2.length; i++) {
+		const char = str2[i];
+		if (str1.indexOf(char) === -1) {
+			return false;
+		}
+		str1 = str1.replace(char, '_');
 	}
-	return str.substring(0, regex['index']) + leadingZeros + increment;
-}
-
-console.log(incrementString('ff1'))
+	return true;
+  }
+  console.log(scramble('avaaaaaj', 'java'));
