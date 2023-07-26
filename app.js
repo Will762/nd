@@ -1,12 +1,13 @@
 function scramble(str1, str2) {
 	if (str1.length < str2.length) return false;
-	for (i = 0; i < str2.length; i++) {
-		const char = str2[i];
-		if (str1.indexOf(char) === -1) {
-			return false;
-		}
-		str1 = str1.replace(char, '_');
+	const letters = new Map;
+	for (const char of str1) {
+		letters.set(char, letters.get(char) + 1 || 1);
+	}
+	for (const char of str2) {
+		if (letters.get(char) === 0 || letters.get(char) === undefined) return false;
+		letters.set(char, letters.get(char) - 1);
 	}
 	return true;
   }
-  console.log(scramble('avaaaaaj', 'java'));
+  console.log(scramble('avjhh', 'java'));
